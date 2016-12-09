@@ -4,14 +4,14 @@ using UnityEngine.Networking;
 
 public class PickUp : NetworkBehaviour {
 
-	public static int NUMBEREFFECTS = 4;
+	public static int NUMBEREFFECTS = 5;
 
 	public static int SPEED = 0;
 	public static int MAXSPEED = 1;
 	public static int SHOOTINGPOWER = 2;
 	public static int SHOOTINGINTERVAL = 3;
-	public static int BIGGER = 5;
-	public static int ROTATEWORLD = 4;
+	public static int BIGGER = 4;
+	public static int ROTATEWORLD = 5;
 
 	[SyncVar] string uniqueName;
 	private NetworkInstanceId playerNetID;

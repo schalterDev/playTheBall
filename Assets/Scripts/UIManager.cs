@@ -100,6 +100,15 @@ public class UIManager : MonoBehaviour {
 		}
 	} */
 
+	public void GoBackToLobby() {
+		GameObject lobby = GameObject.Find ("LobbyManager");
+		Prototype.NetworkLobby.LobbyManager lobbyManager = Prototype.NetworkLobby.LobbyManager.s_Singleton;
+
+		lobbyManager.GoBackButton ();
+
+		//lobbyManager.goToMainMenu ();
+	}
+
     public void StartSinglePlayer()
     {
         SceneManager.LoadScene("SinglePlayer"); 
@@ -132,10 +141,18 @@ public class UIManager : MonoBehaviour {
     public static void PauseGame()
     {
         overlay.SetActive(true);
+
+		Prototype.NetworkLobby.LobbyManager lobbyManager = Prototype.NetworkLobby.LobbyManager.s_Singleton;
+
+		lobbyManager.topPanel.ToggleVisibility (true);
     }
 
     public static void ResumeGame()
     {
         overlay.SetActive(false);
+
+		Prototype.NetworkLobby.LobbyManager lobbyManager = Prototype.NetworkLobby.LobbyManager.s_Singleton;
+
+		lobbyManager.topPanel.ToggleVisibility (false);
     }
 }

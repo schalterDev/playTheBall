@@ -65,11 +65,11 @@ public class EffectManager : NetworkBehaviour {
 
 			CmdSetShootingInterval (playerName, pickup.strength);
 
-		} /*else if (pickup.effect == PickUp.BIGGER) {
+		} else if (pickup.effect == PickUp.BIGGER) {
 
 			CmdSetSize (playerName, pickup.strength);
 
-		}*/
+		}
 
 		if (isServer) {
 			RpcAddEffectToView (effect.getPlayer (), Time.time - effect.timeStarted, effect.pickupName);

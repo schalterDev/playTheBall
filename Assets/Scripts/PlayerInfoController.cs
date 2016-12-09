@@ -29,6 +29,9 @@ public class PlayerInfoController : NetworkBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		lastPlayer = false;
+		playerCounter = 0;
+
 		if (isLocalPlayer) {
 			nameInScene = gameObject.name;
 			setup ();
@@ -85,8 +88,6 @@ public class PlayerInfoController : NetworkBehaviour {
 	}
 
 	void UpdateName() {
-		Debug.Log ("TextMesh: " + textMesh + ", Name: " + name);
-
 		if(textMesh != null)
 			textMesh.text = name;
 	}

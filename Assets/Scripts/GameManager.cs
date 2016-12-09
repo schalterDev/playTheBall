@@ -23,6 +23,7 @@ public class GameManager : NetworkBehaviour {
 	public GameObject countdownOverlay;
 	public GameObject gameOverOverlay;
 	public GameObject joystick;
+	public Text gameOverText;
 
 	private Text countdownText;
 	private float startTime;
@@ -35,8 +36,10 @@ public class GameManager : NetworkBehaviour {
 	public GameObject nightLight;
 
 	public static GameManager instance;
+	public bool winner;
 
 	void Awake() {
+		winner = false;
 		instance = this;
 
 		//Limit frame rate to 30
@@ -122,6 +125,10 @@ public class GameManager : NetworkBehaviour {
 
 		if(state == GAMEOVER) {
 			gameOverOverlay.SetActive (true);
+
+			if (winner) {
+				gameOverText.text = "WINNER";
+			}
 		}
 	}
 
@@ -170,6 +177,12 @@ public class GameManager : NetworkBehaviour {
 			return;
 		
 		RpcSetTimeScale (0f);
+
+		if (Points.getPoints () == scoreToEnd) {
+			winner = true;
+		} else {
+			winner = false;
+		}
 
 		state = GAMEOVER;
 	}

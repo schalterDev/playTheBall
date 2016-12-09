@@ -39,7 +39,7 @@ public class CameraController : MonoBehaviour {
 
 				setNewRotation (newRotation);
 			} else {
-				setNewRotation (rotation);
+				
 			}
 
             float vectorX = player.transform.position.x;

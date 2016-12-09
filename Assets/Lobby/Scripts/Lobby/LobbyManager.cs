@@ -133,6 +133,8 @@ namespace Prototype.NetworkLobby
                     ChangeTo(mainMenuPanel);
                 }
 
+				Debug.Log ("TopPanel show");
+
                 topPanel.ToggleVisibility(true);
                 topPanel.isInGame = false;
             }
@@ -194,6 +196,7 @@ namespace Prototype.NetworkLobby
         public void GoBackButton()
         {
             backDelegate();
+			Time.timeScale = 1;
 			topPanel.isInGame = false;
         }
 

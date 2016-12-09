@@ -52,6 +52,14 @@ public class Points : NetworkBehaviour {
 		firstTeam = firstTeamBool;
 	}
 
+	public static int getPoints () {
+		if (firstTeam) {
+			return instance.pointsFirstTeam;
+		} else {
+			return instance.pointsSecondTeam;
+		}
+	}
+
 	public static int getHighestScore() {
 		if (instance.pointsFirstTeam > instance.pointsSecondTeam)
 			return instance.pointsFirstTeam;

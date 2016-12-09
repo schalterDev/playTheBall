@@ -31,10 +31,13 @@ namespace Prototype.NetworkLobby
 
         public void ToggleVisibility(bool visible)
         {
+
             isDisplayed = visible;
             foreach (Transform t in transform)
             {
-                t.gameObject.SetActive(isDisplayed);
+				if ( !t.gameObject.name.Equals("MainMenuButton") ) {
+					t.gameObject.SetActive (isDisplayed);
+				}
             }
 
             if (panelImage != null)

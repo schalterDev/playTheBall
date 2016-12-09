@@ -27,8 +27,6 @@ public class GroundRotator : MonoBehaviour {
 		newYRotation = rotation.y;
 		newZRotation = rotation.z;
 
-		Debug.Log ("Rotation: " + rotation);
-
 		if (rotateBack) {
 
 			if (rotation.x < -rotationlock)

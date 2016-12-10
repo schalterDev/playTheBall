@@ -83,6 +83,8 @@ public class PlayerCollission : NetworkBehaviour {
 				lastShoot = Time.time;
 
 				base.GetComponent<PlayerInfoController>().shot();
+
+				AudioManager.shootAudio ();
 			}
 		}
 	}
@@ -99,6 +101,8 @@ public class PlayerCollission : NetworkBehaviour {
 	}
 
 	private void CollissionPickUp(string playerName, string pickupName) {
+		AudioManager.pickupAudio ();
+
 		Effect effect = new Effect (playerName, pickupName, Time.time);
 
 		EffectManager.instance.addEffect (effect);

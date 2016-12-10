@@ -54,6 +54,7 @@ public class BallCollision : NetworkBehaviour {
 	[ClientRpc]
 	void RpcGoal() {
 		goalOverlay.SetActive (true);
+		AudioManager.goalAudio ();
 	}
 
 	[ClientRpc]

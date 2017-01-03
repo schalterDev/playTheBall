@@ -31,7 +31,7 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
   - enabled: 0
     path: Assets/SampleScenes/Scenes/Particles.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/SinglePlayer.unity
   - enabled: 0
     path: Assets/Scenes/MultiPlayer-old.unity

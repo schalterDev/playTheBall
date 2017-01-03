@@ -41,11 +41,11 @@ public class AudioManager : MonoBehaviour {
 		while (playStadionSoundBool) {
 			stadionSource.clip = getStadionAudio ();
 			stadionSource.Play ();
-			Debug.Log ("Play one: " + stadionSource.clip.length);
+			//Debug.Log ("Play one: " + stadionSource.clip.length);
 			yield return new WaitForSeconds (stadionSource.clip.length - 2);
 			stadionSource2.clip = getStadionAudio ();
 			stadionSource2.Play ();
-			Debug.Log ("Play two: " + stadionSource2.clip.length);
+			//Debug.Log ("Play two: " + stadionSource2.clip.length);
 			yield return new WaitForSeconds (stadionSource2.clip.length - 2);
 		}
 	}

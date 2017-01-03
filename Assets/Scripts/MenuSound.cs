@@ -23,7 +23,9 @@ public class MenuSound : MonoBehaviour {
 	}
 
 	public static void stopMusic() {
-		Destroy (instance.gameObject);
-		instance = null;
+		if (instance != null) {
+			Destroy (instance.gameObject);
+			instance = null;
+		}
 	}
 }

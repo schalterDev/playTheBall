@@ -16,18 +16,18 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 4000012001271452}
-  - 33: {fileID: 33000013501433400}
-  - 135: {fileID: 135000010269784012}
-  - 54: {fileID: 54000010756595386}
-  - 23: {fileID: 23000013422609030}
-  - 114: {fileID: 114000012818283840}
-  - 114: {fileID: 114000013618291858}
-  - 114: {fileID: 114000012578892836}
-  - 114: {fileID: 114000012439319516}
-  - 114: {fileID: 114000010017939068}
+  - component: {fileID: 4000012001271452}
+  - component: {fileID: 33000013501433400}
+  - component: {fileID: 135000010269784012}
+  - component: {fileID: 54000010756595386}
+  - component: {fileID: 23000013422609030}
+  - component: {fileID: 114000012818283840}
+  - component: {fileID: 114000013618291858}
+  - component: {fileID: 114000012578892836}
+  - component: {fileID: 114000012439319516}
+  - component: {fileID: 114000010017939068}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -40,12 +40,12 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 4000013156453962}
-  - 23: {fileID: 23000010038462856}
-  - 102: {fileID: 102000010524112624}
-  - 114: {fileID: 114000012234425694}
+  - component: {fileID: 4000013156453962}
+  - component: {fileID: 23000010038462856}
+  - component: {fileID: 102000010524112624}
+  - component: {fileID: 114000012234425694}
   m_Layer: 0
   m_Name: name
   m_TagString: Untagged
@@ -62,11 +62,11 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.83, y: 0.53, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 4000013156453962}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4000013156453962
 Transform:
   m_ObjectHideFlags: 1
@@ -76,10 +76,10 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 4000012001271452}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &23000010038462856
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -94,7 +94,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_Materials:
   - {fileID: 10100, guid: 0000000000000000e000000000000000, type: 0}
-  m_SubsetIndices: 
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
@@ -102,12 +104,13 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_SelectedWireframeHidden: 0
+  m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
 --- !u!23 &23000013422609030
 MeshRenderer:
@@ -123,7 +126,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_Materials:
   - {fileID: 2100000, guid: 77f902aedc9ab3647ab1eb606e31cc6b, type: 2}
-  m_SubsetIndices: 
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
@@ -131,12 +136,13 @@ MeshRenderer:
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_SelectedWireframeHidden: 0
+  m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
 --- !u!33 &33000013501433400
 MeshFilter:
@@ -218,6 +224,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firstTeam: 0
+  playerName: 
   maxShootingInterval: 0
   shootingBarPrefab: {fileID: 1000012829990948, guid: 0c0fd20b301fa45dcb68197b37b4e659,
     type: 2}
@@ -238,9 +245,10 @@ MonoBehaviour:
   m_RotationSyncCompression: 0
   m_SyncSpin: 0
   m_MovementTheshold: 0.001
+  m_VelocityThreshold: 0.0001
   m_SnapThreshold: 5
   m_InterpolateRotation: 1
-  m_InterpolateMovement: 1
+  m_InterpolateMovement: 0.5
 --- !u!114 &114000012818283840
 MonoBehaviour:
   m_ObjectHideFlags: 1

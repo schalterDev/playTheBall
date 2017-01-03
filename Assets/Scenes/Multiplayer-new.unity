@@ -4949,7 +4949,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1123474985
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8134,7 +8134,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startCountdown: 3
   scoreToEnd: 3
-  expectedNumberOfPlayers: 8
+  expectedNumberOfPlayers: 2
   countdownOverlay: {fileID: 523653526}
   gameOverOverlay: {fileID: 1612810554}
   joystick: {fileID: 1123474984}

@@ -4,31 +4,33 @@ using UnityEngine.Networking;
 
 public class PlayerControlNetwork : NetworkBehaviour {
 
-    public float speed;
-    public float maxSpeed;
-
     public float acceMulti;
     public float verticalAusgleich;
 
 	public GameObject particle;
 
     private Rigidbody rb;
+	private PlayerInfoController playerInfoController;
 
-	[SyncVar] public Vector3 startPosition;
 	private bool turnAxes;
 
 	private int control;
 
+	private Vector3 lastMovement;
+	//only for server
+	private Vector3 movement;
+
     void Start()
     {
-		if (!isLocalPlayer)
-			return;
-		
+		lastMovement = Vector3.zero;
+		movement = Vector3.zero;
+
 		//Find objects
 		LoadObjects();
 
-        rb = GetComponent<Rigidbody>();
-
+		if (!isLocalPlayer)
+			return;
+		
 		timelastPartical = Time.time;
 		positionLastPartical = transform.position;
     }
@@ -60,33 +62,41 @@ public class PlayerControlNetwork : NetworkBehaviour {
 		positionLastPartical = transform.position;
 	}
 
-    void LoadObjects()
+    private void LoadObjects()
     {
-        //Camera
-        GameObject camera = GameObject.Find("Camera");
-        CameraController cameraScript = (CameraController) camera.GetComponent(typeof(CameraController));
-        cameraScript.SetPlayer(this.gameObject);
+		rb = GetComponent<Rigidbody>();
 
-		PlayerInfoController info = (PlayerInfoController) this.gameObject.GetComponent (typeof(PlayerInfoController));
-		turnAxes = info.firstTeam;
+		playerInfoController = gameObject.GetComponent<PlayerInfoController>();
+		turnAxes = playerInfoController.firstTeam;
 
 		control = PlayerPrefs.GetInt (PreferenceManager.CONTROL);
+
+		rb = GetComponent<Rigidbody>();
 
     }
 
     void FixedUpdate()
     {
-        if (!isLocalPlayer)
-        {
-            return;
-        }
+		if (isLocalPlayer) {
+			if (GameManager.instance.getState () != GameManager.BEFORESTART
+				&& GameManager.instance.getState () != GameManager.COUNTDOWN)
+				MovingPhysik ();
+		}
 
-		if (GameManager.instance.getState() != GameManager.BEFORESTART
-			&& GameManager.instance.getState() != GameManager.COUNTDOWN)
-        	MovingPhysik();
+		if (isServer) {
+			float maxSpeed = playerInfoController.actualMaxSpeed;
+
+			rb.AddForce(movement);
+			//MAX Speed
+			if (rb.velocity.magnitude > maxSpeed)
+			{
+				rb.velocity = rb.velocity.normalized * maxSpeed;
+			}
+		}
+
     }
-
-    void MovingPhysik()
+		
+    private void MovingPhysik()
     {
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
@@ -120,43 +130,27 @@ public class PlayerControlNetwork : NetworkBehaviour {
 					moveVertical = -1;
 			}
 		}
+			
+		float speed = playerInfoController.actualSpeed;
 
 		if (!(moveHorizontal == 0f && moveVertical == 0f)) {
 			Vector3 movement = new Vector3 (moveHorizontal, 0.0f, moveVertical);
 			if (turnAxes)
-				CmdMove (-1 * movement * speed);
+				this.movement = -1 * movement * speed;
 			else
-				CmdMove (movement * speed);
+				this.movement = movement * speed;
+		} else {
+			this.movement = Vector3.zero;
+		}
+
+		if(!movement.Equals(lastMovement)) {
+			CmdSetMovement(movement);
 		}
 			
     }
 
-	// ---------- NETWORK ------------
-	public override void OnStartServer () {
-		//Set new position
-		Vector3 position = SpawnPoints.getNextSpawnPosition();
-
-		startPosition = position;
-
-		transform.position = position;
-	}
-
 	[Command]
-	public void CmdMove(Vector3 movement) {
-		rb = GetComponent<Rigidbody>();
-
-		rb.AddForce(movement);
-		//MAX Speed
-		if (rb.velocity.magnitude > maxSpeed)
-		{
-			rb.velocity = rb.velocity.normalized * maxSpeed;
-		}
-	}
-		
-	public void resetPosition() {
-		transform.position = startPosition;
-
-		rb = GetComponent<Rigidbody>();
-		rb.velocity = Vector3.zero;
+	private void CmdSetMovement(Vector3 movement) {
+		this.movement = movement;
 	}
 }

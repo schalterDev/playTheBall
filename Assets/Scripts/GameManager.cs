@@ -64,7 +64,9 @@ public class GameManager : NetworkBehaviour {
 
 		actualNumberOfPlayers = 0;
 
-		state = BEFORESTART;
+		if(isServer)
+			state = BEFORESTART;
+		
 		startTime = Time.time;
 		countdownText = countdownOverlay.GetComponentInChildren<Text> ();
 
@@ -203,11 +205,11 @@ public class GameManager : NetworkBehaviour {
 
 		//Reset all players
 		foreach (GameObject playerObject in GameObject.FindGameObjectsWithTag("FirstPlayer")) {
-			PlayerControlNetwork player = (PlayerControlNetwork) playerObject.GetComponent(typeof(PlayerControlNetwork));
+			PlayerInfoController player = (PlayerInfoController) playerObject.GetComponent(typeof(PlayerInfoController));
 			player.resetPosition ();
 		}
 		foreach (GameObject playerObject in GameObject.FindGameObjectsWithTag("SecondPlayer")) {
-			PlayerControlNetwork player = (PlayerControlNetwork) playerObject.GetComponent(typeof(PlayerControlNetwork));
+			PlayerInfoController player = (PlayerInfoController) playerObject.GetComponent(typeof(PlayerInfoController));
 			player.resetPosition ();
 		}
 

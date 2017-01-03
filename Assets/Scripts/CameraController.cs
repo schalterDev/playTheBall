@@ -3,7 +3,7 @@ using System.Collections;
 
 public class CameraController : MonoBehaviour {
 
-    public GameObject player;
+    private GameObject player;
 
     public float horizontalCamera = 2f;
 	public float smoothTime = 2f;

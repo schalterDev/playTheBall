@@ -15,6 +15,11 @@ namespace Prototype.NetworkLobby
         public InputField ipInput;
         public InputField matchNameInput;
 
+		void Start() {
+			//Load last IP-Adress from settings
+			ipInput.text = PlayerPrefs.GetString(PreferenceManager.LASTIP);
+		}
+
         public void OnEnable()
         {
             lobbyManager.topPanel.ToggleVisibility(true);
@@ -34,6 +39,9 @@ namespace Prototype.NetworkLobby
         public void OnClickJoin()
         {
             lobbyManager.ChangeTo(lobbyPanel);
+
+			//Save last IP-Adress in settings
+			PlayerPrefs.SetString(PreferenceManager.LASTIP, ipInput.text);
 
             lobbyManager.networkAddress = ipInput.text;
             lobbyManager.StartClient();

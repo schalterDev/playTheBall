@@ -4,6 +4,8 @@ using UnityEngine.Networking;
 
 public class PlayerControlNetwork : NetworkBehaviour {
 
+	private bool DEBUG = true;
+
     public float acceMulti;
     public float verticalAusgleich;
 
@@ -19,9 +21,12 @@ public class PlayerControlNetwork : NetworkBehaviour {
 	private Vector3 lastMovement;
 	//only for server
 	private Vector3 movement;
+	private GameManager gameManager;
 
     void Start()
     {
+		gameManager = GameManager.getInstance ();
+
 		lastMovement = Vector3.zero;
 		movement = Vector3.zero;
 
@@ -84,13 +89,16 @@ public class PlayerControlNetwork : NetworkBehaviour {
 		}
 
 		if (isServer) {
-			float maxSpeed = playerInfoController.actualMaxSpeed;
+			if (gameManager == null)
+				gameManager = GameManager.getInstance ();
 
-			rb.AddForce(movement);
-			//MAX Speed
-			if (rb.velocity.magnitude > maxSpeed)
-			{
-				rb.velocity = rb.velocity.normalized * maxSpeed;
+			if (gameManager != null && gameManager.movementAllowed ()) {
+				float maxSpeed = playerInfoController.actualMaxSpeed;
+				rb.AddForce (movement);
+				//MAX Speed
+				if (rb.velocity.magnitude > maxSpeed) {
+					rb.velocity = rb.velocity.normalized * maxSpeed;
+				}
 			}
 		}
 
@@ -101,7 +109,7 @@ public class PlayerControlNetwork : NetworkBehaviour {
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
 
-		if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer) {
+		if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer || DEBUG) {
 			//use accelormeter
 			if (control == PreferenceManager.ACCELERATOR) {
 				moveHorizontal = Input.acceleration.x * acceMulti;
@@ -133,17 +141,14 @@ public class PlayerControlNetwork : NetworkBehaviour {
 			
 		float speed = playerInfoController.actualSpeed;
 
-		if (!(moveHorizontal == 0f && moveVertical == 0f)) {
-			Vector3 movement = new Vector3 (moveHorizontal, 0.0f, moveVertical);
-			if (turnAxes)
-				this.movement = -1 * movement * speed;
-			else
-				this.movement = movement * speed;
-		} else {
-			this.movement = Vector3.zero;
-		}
+		Vector3 movement = new Vector3 (moveHorizontal, 0.0f, moveVertical);
+		if (turnAxes)
+			movement = -1 * movement * speed;
+		else
+			movement = movement * speed;
 
 		if(!movement.Equals(lastMovement)) {
+			lastMovement = movement;	
 			CmdSetMovement(movement);
 		}
 			

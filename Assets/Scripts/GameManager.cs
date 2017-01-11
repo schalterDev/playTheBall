@@ -38,6 +38,12 @@ public class GameManager : NetworkBehaviour {
 	public static GameManager instance;
 	public bool winner;
 
+	private static GameManager gameManagerInstance;
+
+	public static GameManager getInstance() {
+		return gameManagerInstance;
+	}
+
 	void Awake() {
 		winner = false;
 		instance = this;
@@ -60,6 +66,8 @@ public class GameManager : NetworkBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		gameManagerInstance = this;
+
 		checkControl ();
 
 		actualNumberOfPlayers = 0;
@@ -103,7 +111,7 @@ public class GameManager : NetworkBehaviour {
 
 			if (Time.time - startTime < startCountdown) {
 				countdownText.fontSize = fontForCountdown;
-				countdownText.text = string.Format ("{0:0.00}", startCountdown - (Time.time - startTime));
+				countdownText.text = string.Format ("{0:0}", startCountdown - (Time.time - startTime) + 1f);
 			} else { 
 				//The end of the countdown
 				state = GameManager.STARTET;
@@ -215,6 +223,10 @@ public class GameManager : NetworkBehaviour {
 
 		if(isServer)
 			CmdStartCountdown ();
+	}
+
+	public bool movementAllowed() {
+		return state == STARTET;
 	}
 
 	[Command]

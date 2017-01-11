@@ -10,11 +10,13 @@ public class MenuSound : MonoBehaviour {
 	void Start () {
 		if (instance == null) {
 			instance = this;
-			DontDestroyOnLoad(transform.gameObject);
-		} else
+			DontDestroyOnLoad (transform.gameObject);
+			Debug.Log ("Sound started");
+		} else {
+			// When you go again into menu dont start music again
+			Debug.Log("Sound destroyed");
 			Destroy (this.gameObject);
-		
-
+		}
 	}
 	
 	// Update is called once per frame

@@ -68,7 +68,6 @@ public class EffectManager : NetworkBehaviour {
 			
 		RpcAddEffectToView (effect.getPlayer (), Time.time - effect.timeStarted, effect.pickupName);
 
-		//will be destroyed after five second
 		destroyPickup(effect.pickupName);
 	}
 		
@@ -116,6 +115,7 @@ public class EffectManager : NetworkBehaviour {
 	[ClientRpc]
 	private void RpcAddEffectToView(string playerName, float timeSinceStarted, string pickupName) {
 
+		//TODO error: NullReferenceException: Object reference not set to an instance of an object
 		Effect effect = new Effect (playerName, pickupName, Time.time - timeSinceStarted);
 
 		// if is local player
@@ -157,11 +157,10 @@ public class EffectManager : NetworkBehaviour {
 	}
 
 	[Server]
-	IEnumerator destroyPickup(string pickupName) {
-		//delete after five second the pickup because on the client side the effect manager needs the instance of this object
-		yield return new WaitForSeconds(5f); 
+	private void destroyPickup(string pickupName) {
 		GameObject pickup = GameObject.Find (pickupName);
-		Destroy (pickup);
+		//Destroy (pickup);
+		//TODO dont destroy here or in Effects there will be an error because the object is not found any more
 	}
 
 	[Server]

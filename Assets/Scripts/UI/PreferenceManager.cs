@@ -9,6 +9,8 @@ public class PreferenceManager : MonoBehaviour {
 	public Text namesText;
 	public Text lightText;
 
+	public static string LASTIP = "last-ip";
+
 	public static string CONTROL = "control";
 	public static string NAMES = "names";
 	public static string LIGHT = "light";

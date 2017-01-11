@@ -39,12 +39,12 @@ public class BallCollision : NetworkBehaviour {
 				if (other.gameObject.CompareTag ("NorthGoal")) {
 					resetBallTime = timeForReset;
 					RpcGoal ();
-					Points.firstTeamScores ();
+					Points.secondTeamScores ();
 					timeLastGoal = Time.time;
 				} else if (other.gameObject.CompareTag ("SouthGoal")) {
 					resetBallTime = timeForReset;
 					RpcGoal ();
-					Points.secondTeamScores ();
+					Points.firstTeamScores ();
 					timeLastGoal = Time.time;
 				}
 			}

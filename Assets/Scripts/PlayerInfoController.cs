@@ -25,6 +25,7 @@ public class PlayerInfoController : NetworkBehaviour {
 
 	[SyncVar] public bool firstTeam;
 	[SyncVar] public string playerName;
+	[SyncVar] public string playerNameVisibleOthers;
 	[SyncVar] public Vector3 startPosition;
 
 	private NetworkInstanceId playerNetID;
@@ -99,7 +100,7 @@ public class PlayerInfoController : NetworkBehaviour {
 
 	void UpdateName() {
 		if(nameTextMesh != null)
-			nameTextMesh.text = name;
+			nameTextMesh.text = playerNameVisibleOthers;
 	}
 
 	public void resetPosition() {
